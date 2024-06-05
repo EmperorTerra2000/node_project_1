@@ -11,7 +11,7 @@ import cookieParser from "cookie-parser";
 import { errors } from "celebrate";
 import NotFoundError from "../errors/not-found-error.mjs";
 import cors from "../middlewares/cors.mjs";
-import auth from "../middlewares/auth.mjs";
+// import auth from "../middlewares/auth.mjs";
 
 import { routerSignIn, routerSignUp } from "../routes/index.mjs";
 
@@ -21,6 +21,8 @@ config();
 const { NODE_ENV, JWT_SECRET, DB_ROUTE } = process.env;
 
 const { PORT = 3000 } = process.env;
+
+let total = 0;
 
 const app = express();
 
@@ -69,9 +71,13 @@ app.use(routerSignUp);
 // });
 
 // мидлвэр авторизации используем для всего приложения
-app.use(auth);
+// app.use(auth);
 
 app.get("/", (req, res) => {
+  total += 1;
+
+  console.log(total);
+
   res.render("index");
 });
 
